@@ -11,7 +11,7 @@ export default {
     type: String,
     action: {
       type: String,
-      required: true
+      required: false
     },
     name: {
       type: String,
@@ -153,6 +153,10 @@ export default {
           delete this.reqs[uid];
         }
       };
+      if (this.httpRequest === ajax && !options.action) {
+        console.log(new Error('action prop is required'))
+        return
+      }
       const req = this.httpRequest(options);
       this.reqs[uid] = req;
       if (req && req.then) {
